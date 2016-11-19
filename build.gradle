@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'war' //war파일로 변경 및 묶기
+apply plugin: 'eclipse-wtp'
+
+sourceCompatibility = 1.8
+version = '1.0.0'
+
+war {
+    manifest {
+        attributes 'Implementation-Title': 'Yoni JSP Edu',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+	
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+//providedCompile : 개발할때는 추가해서 사용하고 배포할때는 넣지 않는다.
+//그루비(groovy) 라는 언어 사용
+//providedCompile : 함수명
+//group : 파라미터
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+project.webAppDirName = 'webapp'
